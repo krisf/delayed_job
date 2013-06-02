@@ -49,6 +49,9 @@ module Delayed
         opts.on('--sleep-delay N', "Amount of time to sleep when no jobs are found") do |n|
           @options[:sleep_delay] = n.to_i
         end
+        opts.on('--retry-delay N', "Adjusts the delay between failed job retries. Suggested value 2-6. Default 4.") do |n|
+          @options[:retry_delay] = n.to_i
+        end
         opts.on('--read-ahead N', "Number of jobs from the queue to consider") do |n|
           @options[:read_ahead] = n
         end
