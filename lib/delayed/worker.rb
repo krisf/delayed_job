@@ -10,6 +10,7 @@ module Delayed
   class Worker
     DEFAULT_LOG_LEVEL        = Logger::INFO
     DEFAULT_SLEEP_DELAY      = 5
+    DEFAULT_RETRY_DELAY      = 4
     DEFAULT_MAX_ATTEMPTS     = 25
     DEFAULT_MAX_RUN_TIME     = 4.hours
     DEFAULT_DEFAULT_PRIORITY = 0
@@ -18,7 +19,7 @@ module Delayed
     DEFAULT_READ_AHEAD       = 5
 
     cattr_accessor :min_priority, :max_priority, :max_attempts, :max_run_time,
-      :default_priority, :sleep_delay, :logger, :delay_jobs, :queues,
+      :default_priority, :sleep_delay, :retry_delay, :logger, :delay_jobs, :queues,
       :read_ahead, :plugins, :destroy_failed_jobs, :exit_on_complete
 
     # Named queue into which jobs are enqueued by default
@@ -31,6 +32,7 @@ module Delayed
 
     def self.reset
       self.sleep_delay      = DEFAULT_SLEEP_DELAY
+      self.retry_delay      = DEFAULT_RETRY_DELAY
       self.max_attempts     = DEFAULT_MAX_ATTEMPTS
       self.max_run_time     = DEFAULT_MAX_RUN_TIME
       self.default_priority = DEFAULT_DEFAULT_PRIORITY
