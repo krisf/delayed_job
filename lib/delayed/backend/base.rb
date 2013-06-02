@@ -127,9 +127,13 @@ module Delayed
       def reschedule_at
         payload_object.respond_to?(:reschedule_at) ?
           payload_object.reschedule_at(self.class.db_time_now, attempts) :
-          self.class.db_time_now + (attempts ** payload_object.retry_delay) + 5
+          self.class.db_time_now + (attempts ** retry_delay) + 5
       end
 
+      def retry_delay
+        payload_object.respond_to?(:retry_delay) ? payload_object.retry_delay : 4
+      end
+      
       def max_attempts
         payload_object.max_attempts if payload_object.respond_to?(:max_attempts)
       end
